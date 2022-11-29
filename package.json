@@ -1,0 +1,23 @@
+{
+  "name": "servicio",
+  "version": "1.0.0",
+  "description": "Aplicacion de api rest para monolito de semaforo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jennymaiden/apiSemaforo.git"
+  },
+  "author": "jennymaiden",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jennymaiden/apiSemaforo/issues"
+  },
+  "homepage": "https://github.com/jennymaiden/apiSemaforo#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "socket.io": "^4.2.0"
+  }
+}
