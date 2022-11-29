@@ -5,7 +5,16 @@ const express = require('express');
 
 const app = express();
 const {getLeerArchivo, getInformacion} = require('../logic/cicloSemaforico');
-const {main} = require('../logic/leerArchivo');
+const {file} = require('../logic/leerArchivo');
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
+
 // Conectar al servidor
 app.get('/primero', function (req, res) {
     //res.send('Saludos desde express');
@@ -32,8 +41,8 @@ app.get('/primerPaso', async (req, res) =>{
 
 app.get('/tercero', async (req, res) =>{
   //res.send('Saludos desde express');
-  const data = await main()
-
+  const data = await file()
+  console.log('respuesta: '+data)
   res.json({
     ok: true,
     informacion: data

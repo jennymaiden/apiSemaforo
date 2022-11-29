@@ -1,42 +1,19 @@
-const fs = require('fs');
-/**
- * Parameter: async iterable of chunks (strings)
- * Result: async iterable of lines (incl. newlines)
- */
- async function* chunksToLines(chunksAsync) {
-    let previous = '';
-    for await (const chunk of chunksAsync) {
-      previous += chunk;
-      let eolIndex;
-      while ((eolIndex = previous.indexOf('\n')) >= 0) {
-        // line includes the EOL
-        const line = previous.slice(0, eolIndex+1);
-        yield line;
-        previous = previous.slice(eolIndex+1);
-      }
-    }
-    if (previous.length > 0) {
-      yield previous;
-    }
-  }
+//import { readFile } from 'fs/promises';
+const fs = require("fs"),
+    NOMBRE_ARCHIVO = `${__dirname}/PlanCiclo.txt`;
 
-  /**
- * Parameter: async iterable of lines
- * Result: async iterable of numbered lines
- */
-async function* numberLines(linesAsync) {
-    let counter = 1;
-    for await (const line of linesAsync) {
-      yield counter + ': ' + line;
-      counter++;
-    }
+// leemos el archivo usando top-level await y con
+// codificación utf-8
+//const file = await readFile(NOMBRE_ARCHIVO, 'utf-8')
+async function file() {
+    //const x = await readFile(NOMBRE_ARCHIVO, 'utf-8')
+    const x = await fs.readFile(NOMBRE_ARCHIVO,'utf8', (err, data) => {
+        if (err) throw err;
+        console.log(data);
+        return data;
+      });
   }
+// transformamos el contenido en un JSON
+//const json = JSON.parse(file)
 
-  async function main() {
-    const inputFilePath = `${__dirname}/PlanCiclo.txt`;
-    const readStream = fs.createReadStream(inputFilePath,
-      { encoding: 'utf8', highWaterMark: 1024 });
-      console.log(numberLines(chunksToLines(readStream)));
-  }
-
-  module.exports ={main};
+module.exports ={file};
